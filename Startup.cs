@@ -13,19 +13,18 @@ namespace ProAspNetCoreMvcValidation
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddMvc();
+            services.AddMvc().AddMvcOptions(options => {
+                options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor((_) => "Campo obrigatório.");
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            app.UseStatusCodePages();
+            app.UseDeveloperExceptionPage();
+            app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
