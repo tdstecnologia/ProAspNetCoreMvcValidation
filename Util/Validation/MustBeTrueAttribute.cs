@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace ProAspNetCoreMvcValidation.Util.Validation
 {
-    public class MustBeTrueAttribute : Attribute, IModelValidator
+    public class MarcarComoTrueAttribute : Attribute, IModelValidator
     {
         public bool IsRequired => true;
-        public string ErrorMessage { get; set; } = "This value must be true";
+        public string ErrorMessage { get; set; } = "Você deve marcar como true";
         public IEnumerable<ModelValidationResult> Validate(ModelValidationContext context)
         {
             bool? value = context.Model as bool?;

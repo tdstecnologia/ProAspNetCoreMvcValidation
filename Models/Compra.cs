@@ -1,9 +1,5 @@
 ﻿using ProAspNetCoreMvcValidation.Util.Validation;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProAspNetCoreMvcValidation.Models
 {
@@ -29,7 +25,7 @@ namespace ProAspNetCoreMvcValidation.Models
         [StringLength(10)]
         public string Mensagem { get; set; }
 
-        [MustBeTrue(ErrorMessage = "Você aceitar os termos de entraga")]
+        [MarcarComoTrue(ErrorMessage = "Você deve marcar como true")]
         public bool TermosEntrega { get; set; }
     }
 }

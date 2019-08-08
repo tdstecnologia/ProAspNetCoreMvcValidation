@@ -9,46 +9,46 @@ namespace ProAspNetCoreMvcValidation.Controllers
     public class HomeController : Controller
     {
         public IActionResult Index() =>
-        View("MakeBooking", new Appointment { Date = DateTime.Now });
+        View("Agenda", new Compromisso { Data = DateTime.Now });
 
         [HttpPost]
-        public ViewResult MakeBooking1(Appointment appt) =>
-        View("Completed", appt);
+        public ViewResult Agenda1(Compromisso appt) =>
+        View("Completo", appt);
 
         [HttpPost]
-        public ViewResult MakeBooking(Appointment appt)
+        public ViewResult Agenda(Compromisso appt)
         {
-            if (string.IsNullOrEmpty(appt.ClientName))
+            if (string.IsNullOrEmpty(appt.NomeCliente))
             {
-                ModelState.AddModelError(nameof(appt.ClientName),
-                "Please enter your name");
+                ModelState.AddModelError(nameof(appt.NomeCliente),
+                "Informe seu nome");
             }
-            if (ModelState.GetValidationState("Date")
-            == ModelValidationState.Valid && DateTime.Now > appt.Date)
+            if (ModelState.GetValidationState("Data")
+            == ModelValidationState.Valid && DateTime.Now > appt.Data)
             {
-                ModelState.AddModelError(nameof(appt.Date),
-                "Please enter a date in the future");
+                ModelState.AddModelError(nameof(appt.Data),
+                "Informe uma data futura");
             }
-            if (!appt.TermsAccepted)
+            if (!appt.AceitaTermos)
             {
-                ModelState.AddModelError(nameof(appt.TermsAccepted),
-                "You must accept the terms");
+                ModelState.AddModelError(nameof(appt.AceitaTermos),
+                "Você deve aceitar os termos");
             }
 
-            if (ModelState.GetValidationState(nameof(appt.Date))
+            if (ModelState.GetValidationState(nameof(appt.Data))
                 == ModelValidationState.Valid
-                && ModelState.GetValidationState(nameof(appt.ClientName))
+                && ModelState.GetValidationState(nameof(appt.NomeCliente))
                 == ModelValidationState.Valid
-                && appt.ClientName.Equals("Joe", StringComparison.OrdinalIgnoreCase)
-                && appt.Date.DayOfWeek == DayOfWeek.Monday)
+                && appt.NomeCliente.Equals("Alice", StringComparison.OrdinalIgnoreCase)
+                && appt.Data.DayOfWeek == DayOfWeek.Monday)
             {
                 ModelState.AddModelError("",
-                "Joe cannot book appointments on Mondays");
+                "Alice não pode ser agendada na segunda-feira");
             }
 
             if (ModelState.IsValid)
             {
-                return View("Completed", appt);
+                return View("Completo", appt);
             }
             else
             {
