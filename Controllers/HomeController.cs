@@ -12,35 +12,35 @@ namespace ProAspNetCoreMvcValidation.Controllers
         View("Agenda", new Compromisso { Data = DateTime.Now });
 
         [HttpPost]
-        public ViewResult Agenda1(Compromisso appt) =>
-        View("Completo", appt);
+        public ViewResult Agenda1(Compromisso compromisso) =>
+        View("Completo", compromisso);
 
         [HttpPost]
-        public ViewResult Agenda(Compromisso appt)
+        public ViewResult Agenda(Compromisso compromisso)
         {
-            if (string.IsNullOrEmpty(appt.NomeCliente))
+            if (string.IsNullOrEmpty(compromisso.NomeCliente))
             {
-                ModelState.AddModelError(nameof(appt.NomeCliente),
+                ModelState.AddModelError(nameof(compromisso.NomeCliente),
                 "Informe seu nome");
             }
             if (ModelState.GetValidationState("Data")
-            == ModelValidationState.Valid && DateTime.Now > appt.Data)
+            == ModelValidationState.Valid && DateTime.Now > compromisso.Data)
             {
-                ModelState.AddModelError(nameof(appt.Data),
+                ModelState.AddModelError(nameof(compromisso.Data),
                 "Informe uma data futura");
             }
-            if (!appt.AceitaTermos)
+            if (!compromisso.AceitaTermos)
             {
-                ModelState.AddModelError(nameof(appt.AceitaTermos),
+                ModelState.AddModelError(nameof(compromisso.AceitaTermos),
                 "Você deve aceitar os termos");
             }
 
-            if (ModelState.GetValidationState(nameof(appt.Data))
+            if (ModelState.GetValidationState(nameof(compromisso.Data))
                 == ModelValidationState.Valid
-                && ModelState.GetValidationState(nameof(appt.NomeCliente))
+                && ModelState.GetValidationState(nameof(compromisso.NomeCliente))
                 == ModelValidationState.Valid
-                && appt.NomeCliente.Equals("Alice", StringComparison.OrdinalIgnoreCase)
-                && appt.Data.DayOfWeek == DayOfWeek.Monday)
+                && compromisso.NomeCliente.Equals("Alice", StringComparison.OrdinalIgnoreCase)
+                && compromisso.Data.DayOfWeek == DayOfWeek.Monday)
             {
                 ModelState.AddModelError("",
                 "Alice não pode ser agendada na segunda-feira");
@@ -48,7 +48,7 @@ namespace ProAspNetCoreMvcValidation.Controllers
 
             if (ModelState.IsValid)
             {
-                return View("Completo", appt);
+                return View("Completo", compromisso);
             }
             else
             {
