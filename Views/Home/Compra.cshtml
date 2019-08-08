@@ -2,15 +2,15 @@
 @{ Layout = "_Layout"; }
 
 @section scripts {
-    <script src="~/jquery/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("input.input-validation-error").addClass("is-invalid");
-        });
-    </script>
+<script src="~/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input.input-validation-error").addClass("is-invalid");
+    });
+</script>
 }
 
-<div class="bg-primary panel-body"><h2>Compra</h2></div>
+<div class="bg-primary panel-body"><h2 class="text-center text-white display-4">Compra</h2></div>
 <form class="panel-body" asp-action="Compra" method="post">
 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -57,5 +57,7 @@
         <input type="radio" asp-for="TermosEntrega" id="customRadio2" value="false" class="custom-control-input">
         <label class="custom-control-label" for="customRadio2">Não</label>
     </div>
-    <button type="submit" class="btn btn-primary">Registrar Contato</button>
+    <section class="row justify-content-center mb-5">
+        <button type="submit" class="btn btn-primary">Registrar Contato</button>
+    </section>
 </form>
